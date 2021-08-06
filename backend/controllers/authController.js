@@ -6,10 +6,17 @@ const sendEmail = require('../utils/sendEmail');
 const crypto = require('crypto');
 const cloudinary = require('cloudinary');
 const ApiFeatures = require('../utils/apiFeatures');
+const { compareSync } = require('bcryptjs');
 
 //Register User => /api/v1/register
 exports.registerUser = catchAsyncErrors(async (req, res, next) => {
-	const { name, email, password } = req.body;
+	const { name, email, password } = req.body.user;
+
+	let user = await User.findOne({ email: email });
+
+	if (user) {
+		return next(new ErrorHandler('User Already Exist.'));
+	}
 
 	const result = await cloudinary.v2.uploader.upload(req.body.avatar, {
 		folder: 'avatars',
@@ -17,7 +24,7 @@ exports.registerUser = catchAsyncErrors(async (req, res, next) => {
 		crop: 'scale',
 	});
 
-	const user = await User.create({
+	user = await User.create({
 		name,
 		email,
 		password,

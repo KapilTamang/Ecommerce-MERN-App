@@ -196,21 +196,9 @@ const ProductDetails = ({ match }) => {
 								className="col-11 col-sm-12 col-md-12 col-lg-4"
 								id="product_image"
 							>
-								{/* <Carousel className="mb-5" pause="hover">
-									{product.images &&
-										product.images.map((image) => (
-											<Carousel.Item key={image._id}>
-												<img
-													className="d-block w-100"
-													src={image.url}
-													alt={product.title}
-												/>
-											</Carousel.Item>
-										))}
-								</Carousel> */}
-								<div className="d-flex justify-content-center">
+								<div className="main-image d-flex justify-content-center">
 									<img
-										className="d-block w-90 mb-5"
+										className=" d-block w-90 mb-5"
 										src={
 											mainImage === ''
 												? product.images && product.images[0].url
@@ -249,8 +237,8 @@ const ProductDetails = ({ match }) => {
 									}}
 								></div>
 							</div>
-							<div className="col-12 col-lg-1"></div>
-							<div className="col-11 col-sm-12 col-md-12 col-lg-6 mt-5 px-5 py-5 card shadow-lg">
+							<div className="col-lg-1"></div>
+							<div className="col-11 col-sm-12 col-md-12 col-lg-6 mt-5 px-5 py-5 card product-detail shadow-lg">
 								<h4>{product.name}</h4>
 								<p id="product_id">Product # {product._id}</p>
 								<hr />
@@ -288,7 +276,7 @@ const ProductDetails = ({ match }) => {
 										+
 									</span>
 									<buton
-										className="btn btn-yellow d-inline ms-4"
+										className="add-to-cart-btn btn btn-yellow mt-3 mt-sm-0 ms-sm-4"
 										onClick={addToCart}
 										disabled={product && product.stock === 0}
 									>

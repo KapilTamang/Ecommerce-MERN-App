@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 const ProductRecommendation = ({ recommendedProducts }) => {
 	return (
 		<div className="row">
-			<div className="col-12 col-md-12 mt-3">
+			<div className="col-11 col-sm-12 col-md-12 mt-3">
 				<h3>Similar Products</h3>
 				<div
 					style={{

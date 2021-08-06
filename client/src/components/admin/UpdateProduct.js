@@ -99,18 +99,29 @@ const UpdateProduct = ({ match, history }) => {
 	const updateProductHandler = (e) => {
 		e.preventDefault();
 
-		const formData = new FormData();
-		formData.append('name', name);
-		formData.append('price', price);
-		formData.append('description', description);
-		formData.append('category', category);
-		formData.append('seller', seller);
-		formData.append('stock', stock);
+		// const formData = new FormData();
+		// formData.append('name', name);
+		// formData.append('price', price);
+		// formData.append('description', description);
+		// formData.append('category', category);
+		// formData.append('seller', seller);
+		// formData.append('stock', stock);
+
+		const product = {
+			name: name,
+			price: price,
+			description: description,
+			category: category,
+			seller: seller,
+			stock: stock,
+			images: [],
+		};
 
 		images.forEach((image) => {
-			formData.append('images', image);
+			product.images.push(image);
 		});
-		dispatch(updateProduct(productId, formData));
+
+		dispatch(updateProduct(productId, product));
 	};
 
 	const onChange = (e) => {
@@ -144,7 +155,6 @@ const UpdateProduct = ({ match, history }) => {
 					<form
 						className="dashboard-form shadow-lg pt-3 pb-5 px-5 my-5"
 						onSubmit={updateProductHandler}
-						encType="multipart/form-data"
 					>
 						<h2 className="text-center my-4">Update Product</h2>
 						<div className="form-group mb-3">

@@ -21,14 +21,14 @@ const Header = () => {
 	return (
 		<Fragment>
 			<nav className="navbar row">
-				<div className="col-2 col-sm-2 col-md-2 col-lg-3 my-2">
+				<div className="col-1 col-sm-2 col-md-2 col-lg-3 my-2">
 					<div className="navbar-brand ms-3">
 						<Link to="/" style={{ textDecoration: 'none', color: 'white' }}>
 							<img src="/images/logo.svg" alt="" width="150" />
 						</Link>
 					</div>
 				</div>
-				<div className=" col-7 col-sm-5 col-md-4 col-lg-4 mt-2 mt-md-0 ">
+				<div className="search col-7 col-sm-7 col-md-4 col-lg-4 mt-2 mt-md-0 ">
 					<Route render={({ history }) => <Search history={history} />} />
 				</div>
 				<div className="d-flex col-8 col-sm-7 col-md-5 col-lg-5 mt-4 mt-md-0 pe-4 text-center align-items-center justify-content-end">

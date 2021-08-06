@@ -58,20 +58,30 @@ const NewProduct = ({ history }) => {
 	const newProductHandler = (e) => {
 		e.preventDefault();
 
-		const formData = new FormData();
+		// const formData = new FormData();
 
-		formData.append('name', name);
-		formData.append('price', price);
-		formData.append('description', description);
-		formData.append('category', category);
-		formData.append('stock', stock);
-		formData.append('seller', seller);
+		// formData.append('name', name);
+		// formData.append('price', price);
+		// formData.append('description', description);
+		// formData.append('category', category);
+		// formData.append('stock', stock);
+		// formData.append('seller', seller);
+
+		const product = {
+			name: name,
+			price: price,
+			description: description,
+			category: category,
+			stock: stock,
+			seller: seller,
+			images: [],
+		};
 
 		images.forEach((image) => {
-			formData.append('images', image);
+			product.images.push(image);
 		});
 
-		dispatch(createNewProduct(formData));
+		dispatch(createNewProduct(product));
 	};
 
 	const onChange = (e) => {
@@ -105,7 +115,6 @@ const NewProduct = ({ history }) => {
 					<form
 						className="dashboard-form shadow-lg pt-3 pb-5 px-5 my-5"
 						onSubmit={newProductHandler}
-						encType="multipart/form-data"
 					>
 						<h2 className="text-center my-4">Create New Product</h2>
 						<div className="form-group mb-3">

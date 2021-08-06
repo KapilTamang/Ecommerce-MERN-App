@@ -238,7 +238,7 @@ const Home = ({ match }) => {
 								</div>
 							</section>
 							{resPerPage < count && (
-								<div className="d-flex justify-content-center my-5">
+								<div className="d-flex  justify-content-center my-5">
 									<Pagination
 										activePage={currentPage}
 										itemsCountPerPage={resPerPage}

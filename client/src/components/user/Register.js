@@ -15,8 +15,6 @@ const Register = ({ history }) => {
 		password: '',
 	});
 
-	const { name, email, password } = user;
-
 	const [avatar, setAvatar] = useState('');
 
 	const [avatarPreview, setAvatarPreview] = useState('');
@@ -39,17 +37,12 @@ const Register = ({ history }) => {
 		}
 	}, [dispatch, isAuthenticated, error, alert, history]);
 
+	console.log(avatarPreview);
+
 	const registerHandler = (e) => {
 		e.preventDefault();
 
-		const formData = new FormData();
-
-		formData.append('name', name);
-		formData.append('email', email);
-		formData.append('password', password);
-		formData.append('avatar', avatar);
-
-		dispatch(register(formData));
+		dispatch(register(user, avatar));
 	};
 
 	const onChange = (e) => {
@@ -74,12 +67,8 @@ const Register = ({ history }) => {
 			<MetaData title={'Register'} />
 			<div className="container container-fluid">
 				<div className="row wrapper">
-					<div className="col-10 col-lg-5">
-						<form
-							onSubmit={registerHandler}
-							className="shadow-lg"
-							encType="multipart/form-data"
-						>
+					<div className="col-11 col-sm-11 col-md-8 col-lg-6 col-xl-5">
+						<form onSubmit={registerHandler} className="shadow-lg">
 							{loading && <FormLoader />}
 							<p
 								className="mb-3 text-center"
@@ -96,7 +85,7 @@ const Register = ({ history }) => {
 									id="name_field"
 									className="form-control"
 									name="name"
-									value={name}
+									value={user.name}
 									onChange={onChange}
 									required
 								/>
@@ -110,7 +99,7 @@ const Register = ({ history }) => {
 									id="email_field"
 									className="form-control"
 									name="email"
-									value={email}
+									value={user.email}
 									onChange={onChange}
 									required
 								/>
@@ -124,7 +113,7 @@ const Register = ({ history }) => {
 									id="password_field"
 									className="form-control"
 									name="password"
-									value={password}
+									value={user.password}
 									onChange={onChange}
 									required
 								/>

@@ -43,7 +43,7 @@ const Login = ({ history, location }) => {
 			<MetaData title="Login" />
 			<div className="container container-fluid">
 				<div className="row wrapper">
-					<div className="col-10 col-lg-5">
+					<div className="col-11 col-sm-11 col-md-8 col-lg-6 col-xl-5">
 						<form onSubmit={loginHandler} className="shadow-lg">
 							{loading && <FormLoader />}
 							<p

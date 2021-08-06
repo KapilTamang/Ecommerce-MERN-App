@@ -22,18 +22,6 @@ const Sidebar = ({ activeMenu }) => {
 			sideBar.classList.add('hide-sidebar');
 			openIcon.classList.add('show-icon');
 			closeIcon.classList.add('hide-icon');
-
-			// sideBar.addEventListener(
-			// 	'transitionend',
-			// 	function (e) {
-			// 		sideBar.classList.add('hide-sidebar');
-			// 	},
-			// 	{
-			// 		capture: false,
-			// 		once: true,
-			// 		passive: false,
-			// 	}
-			// );
 		}
 	};
 

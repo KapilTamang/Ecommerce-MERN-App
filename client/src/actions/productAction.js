@@ -106,7 +106,7 @@ export const getProductDetails = (id) => async (dispatch) => {
 };
 
 //Create New Product
-export const createNewProduct = (productData) => async (dispatch) => {
+export const createNewProduct = (product) => async (dispatch) => {
 	try {
 		dispatch({
 			type: NEW_PRODUCT_REQUEST,
@@ -114,11 +114,11 @@ export const createNewProduct = (productData) => async (dispatch) => {
 
 		const config = {
 			headers: {
-				'Content-Type': 'multipart/form-data',
+				'Content-Type': 'application/json',
 			},
 		};
 
-		const res = await axios.post('/api/v1/products', productData, config);
+		const res = await axios.post('/api/v1/products', product, config);
 
 		dispatch({
 			type: NEW_PRODUCT_SUCCESS,
