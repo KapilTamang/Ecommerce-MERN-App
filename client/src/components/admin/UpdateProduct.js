@@ -99,14 +99,6 @@ const UpdateProduct = ({ match, history }) => {
 	const updateProductHandler = (e) => {
 		e.preventDefault();
 
-		// const formData = new FormData();
-		// formData.append('name', name);
-		// formData.append('price', price);
-		// formData.append('description', description);
-		// formData.append('category', category);
-		// formData.append('seller', seller);
-		// formData.append('stock', stock);
-
 		const product = {
 			name: name,
 			price: price,

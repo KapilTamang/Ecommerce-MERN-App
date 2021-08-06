@@ -803,7 +803,7 @@ ul.CTAs a {
 .admin-loader {
 	position: fixed;
 	top: 50%;
-	left: 42%;
+	left: 48%;
 	width: 270px;
 	height: 50px;
 	background-color: #204060;
@@ -975,6 +975,30 @@ ul.CTAs a {
 	.add-to-cart-btn {
 		display: block;
 	}
+
+	.confirmation-dialog {
+		position: fixed;
+		width: auto;
+		top: 35%;
+		left: 25%;
+		padding: 0.8rem 0.8rem 0rem 0.8rem;
+		height: auto;
+		background: #204060;
+		border-radius: 0.5rem;
+		transition: 0.4s;
+		z-index: 999;
+	}
+
+	.admin-loader {
+		position: fixed;
+		top: 50%;
+		left: 26%;
+		width: 270px;
+		height: 50px;
+		background-color: #204060;
+		color: #ffcc66;
+		border-radius: 0.2rem;
+	}
 }
 
 @media (min-width: 576px) {
@@ -1040,6 +1064,30 @@ ul.CTAs a {
 
 	.main-image img {
 		height: 250px;
+	}
+
+	.confirmation-dialog {
+		position: fixed;
+		width: 290px;
+		top: 35%;
+		left: 27%;
+		padding: 1rem 1rem 0rem 1rem;
+		height: auto;
+		background: #204060;
+		border-radius: 0.5rem;
+		transition: 0.4s;
+		z-index: 999;
+	}
+
+	.admin-loader {
+		position: fixed;
+		top: 50%;
+		left: 33%;
+		width: 270px;
+		height: 50px;
+		background-color: #204060;
+		color: #ffcc66;
+		border-radius: 0.2rem;
 	}
 }
 
@@ -1112,6 +1160,30 @@ ul.CTAs a {
 	.main-image img {
 		height: 350px;
 	}
+
+	.confirmation-dialog {
+		position: fixed;
+		width: 300px;
+		top: 35%;
+		left: 45%;
+		padding: 1.5rem 1.5rem 0rem 1.5rem;
+		height: auto;
+		background: #204060;
+		border-radius: 0.5rem;
+		transition: 0.4s;
+		z-index: 999;
+	}
+
+	.admin-loader {
+		position: fixed;
+		top: 50%;
+		left: 48%;
+		width: 270px;
+		height: 50px;
+		background-color: #204060;
+		color: #ffcc66;
+		border-radius: 0.2rem;
+	}
 }
 
 @media (min-width: 992px) {
@@ -1121,6 +1193,54 @@ ul.CTAs a {
 
 	.search {
 		margin-left: 0;
+	}
+
+	.confirmation-dialog {
+		position: fixed;
+		width: 330px;
+		top: 35%;
+		left: 50%;
+		height: auto;
+		background: #204060;
+		border-radius: 0.5rem;
+		transition: 0.4s;
+		z-index: 999;
+	}
+
+	.admin-loader {
+		position: fixed;
+		top: 50%;
+		left: 48%;
+		width: 270px;
+		height: 50px;
+		background-color: #204060;
+		color: #ffcc66;
+		border-radius: 0.2rem;
+	}
+}
+
+@media (min-width: 1200px) {
+	.confirmation-dialog {
+		position: fixed;
+		width: 350px;
+		height: auto;
+		top: 35%;
+		left: 45%;
+		background: #204060;
+		border-radius: 0.5rem;
+		transition: 0.4s;
+		z-index: 999;
+	}
+
+	.admin-loader {
+		position: fixed;
+		top: 50%;
+		left: 48%;
+		width: 270px;
+		height: 50px;
+		background-color: #204060;
+		color: #ffcc66;
+		border-radius: 0.2rem;
 	}
 }
 

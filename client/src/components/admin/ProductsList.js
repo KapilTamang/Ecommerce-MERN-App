@@ -252,7 +252,7 @@ const ProductsList = () => {
 						</Fragment>
 					)}
 					<ConfirmModal
-						msg={'Are you sure to delete?'}
+						msg={'Are you sure to delete ?'}
 						confirmHandler={deleteProductHandler}
 						id={id}
 					/>

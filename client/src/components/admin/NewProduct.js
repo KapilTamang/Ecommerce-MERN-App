@@ -58,15 +58,6 @@ const NewProduct = ({ history }) => {
 	const newProductHandler = (e) => {
 		e.preventDefault();
 
-		// const formData = new FormData();
-
-		// formData.append('name', name);
-		// formData.append('price', price);
-		// formData.append('description', description);
-		// formData.append('category', category);
-		// formData.append('stock', stock);
-		// formData.append('seller', seller);
-
 		const product = {
 			name: name,
 			price: price,

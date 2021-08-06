@@ -22,10 +22,7 @@ const ConfirmModal = ({ confirmHandler, id, msg }) => {
 	return (
 		<Fragment>
 			<div className="row d-flex justify-content-center">
-				<div
-					className="confirmation-dialog hide-dialog visually-hide-dialog col-8 col-md-3 text-center px-4 pt-4 shadow-lg"
-					pb-3
-				>
+				<div className="confirmation-dialog hide-dialog visually-hide-dialog col-8 col-md-3 text-center  shadow-lg">
 					{' '}
 					<i className="far fa-question-circle text-center mb-3"></i>
 					<h5 className="mb-3">{msg}</h5>

@@ -122,7 +122,7 @@ const ProductReviews = ({ history }) => {
 				<div className="col-12 col-md-3 col-lg-3 col-xl-2">
 					<Sidebar activeMenu={'reviews'} />
 				</div>
-				<div className="col-12 col-md-9 col-lg-9 col-xl-10 pe-5">
+				<div className="col-12 col-md-9 col-lg-9 col-xl-10 pe-md-5">
 					<div className="row justify-content-center mt-5">
 						<div className="col-8 col-sm-6 col-md-6 col-lg-5 col-xl-4">
 							<form
@@ -161,50 +161,6 @@ const ProductReviews = ({ history }) => {
 						</Fragment>
 					) : (
 						<Fragment>
-							{/* <div className=" row d-flex">
-								<div className="col-12 col-md-4 d-flex">
-									<input
-										className="form-control me-2"
-										type="search"
-										// value={searchText}
-										placeholder="Enter Order ID"
-										// onChange={(e) => setSearchText(e.target.value)}
-									/>
-									<button
-										class="btn btn-blue btn-sm me-2 shadow"
-										// onClick={searchHandler}
-									>
-										<i class="fas fa-search"></i>
-									</button>
-									<button
-										class="btn btn-yellow btn-sm shadow"
-										// onClick={resetSearchHandler}
-									>
-										<i class="fas fa-undo-alt"></i>
-									</button>
-								</div>
-								<div className="col-12 col-md-5"></div>
-								<div className="col-12 col-md-3 d-flex justify-content-center align-items-center">
-									Show
-									<select
-										name="perPage"
-										id="perpage_field"
-										className="form-select mx-2"
-										value={perPage}
-										onChange={(e) => setPerPage(e.target.value)}
-										disabled={
-											!loading && reviews && reviews.length === 0 ? true : false
-										}
-									>
-										<option value="6">6</option>
-										<option value="8">8</option>
-										<option value="10">10</option>
-										<option value="12">12</option>
-										<option value="14">14</option>
-									</select>{' '}
-									Records
-								</div>
-							</div> */}
 							<div className="table-responsive table-dashboard mb-5">
 								<table class="table table-striped table-bordered table-hover shadow mt-4">
 									<thead>
@@ -254,22 +210,6 @@ const ProductReviews = ({ history }) => {
 											))}
 									</tbody>
 								</table>
-								{/* {resPerPage < reviewsCount && (
-									<div className="d-flex justify-content-end mt-4">
-										<Pagination
-											activePage={currentPage}
-											itemsCountPerPage={resPerPage}
-											totalItemsCount={reviewsCount}
-											onChange={setCurrentPageNo}
-											nextPageText={'Next'}
-											prevPageText={'Prev'}
-											firstPageText={'First'}
-											lastPageText={'Last'}
-											itemClass="page-item"
-											linkClass="page-link"
-										></Pagination>
-									</div>
-								)} */}
 							</div>
 							<ConfirmModal
 								msg={'Are you sure to delete ?'}
