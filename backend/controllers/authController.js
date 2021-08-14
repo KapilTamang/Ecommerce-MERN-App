@@ -19,8 +19,10 @@ exports.registerUser = catchAsyncErrors(async (req, res, next) => {
 
 	const result = await cloudinary.v2.uploader.upload(req.body.avatar, {
 		folder: 'avatars',
-		width: 500,
-		crop: 'scale',
+		gravity: 'face',
+		width: 800,
+		height: 800,
+		crop: 'thumb',
 	});
 
 	user = await User.create({
@@ -291,8 +293,10 @@ exports.updateProfile = catchAsyncErrors(async (req, res, next) => {
 
 		const result = await cloudinary.v2.uploader.upload(req.body.avatar, {
 			folder: 'avatars',
-			width: 500,
-			crop: 'scale',
+			gravity: 'face',
+			width: 800,
+			height: 800,
+			crop: 'thumb',
 		});
 
 		userNewData.avatar = {

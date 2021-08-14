@@ -60,12 +60,13 @@ const UpdateProfile = ({ history }) => {
 	const updateProfileHandler = (e) => {
 		e.preventDefault();
 
-		const formData = new FormData();
-		formData.append('name', name);
-		formData.append('email', email);
-		formData.append('avatar', avatar);
+		const userData = {
+			name: name,
+			email: email,
+			avatar: avatar,
+		};
 
-		dispatch(updateProfile(formData));
+		dispatch(updateProfile(userData));
 	};
 
 	return (
@@ -74,11 +75,7 @@ const UpdateProfile = ({ history }) => {
 			<div className="container container-fluid">
 				<div className="row wrapper">
 					<div className="col-10 col-lg-5">
-						<form
-							onSubmit={updateProfileHandler}
-							className="shadow-lg"
-							enctype="multipart/form-data"
-						>
+						<form onSubmit={updateProfileHandler} className="shadow-lg">
 							{loading && <FormLoader />}
 							<p
 								className="mb-3 text-center"
