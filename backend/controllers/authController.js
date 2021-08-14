@@ -43,7 +43,7 @@ exports.registerUser = catchAsyncErrors(async (req, res, next) => {
 
 	const message = `Please click the link below to verify your email<br><br>
 					<a href="${emailVerificationURL}" type="button" style="text-decoration: none; border-radius: 0.2rem;
-					background-color: #204060;color: white;font-size: 1rem; border: none;padding: 0.5rem 1.5rem; letter-spacing: 2px;">Verify Email</a><br><br>
+					background-color: #204060;color: #ffcc66;font-size: 0.9rem; border: none;padding: 0.5rem 1.5rem; letter-spacing: 2px;">Verify Email</a><br><br>
 					If you have not requested for this email. Please ignore it <br><br>`;
 
 	try {
@@ -107,7 +107,8 @@ exports.forgotPassword = catchAsyncErrors(async (req, res, next) => {
 	)}/password/reset/${resetToken}`;
 
 	const message = `Your password reset link is as follow <br><br> <a type="button" href="${resetPasswordURL}" style="text-decoration: none; border-radius: 0.2rem;
-					background-color: #204060;color: white;font-size: 1rem;border: none;padding: 0.5rem 1.5rem; letter-spacing: 2px;">Reset Password<a/> <br><br> If you have not requested for this email. Ignore it.`;
+					background-color: #204060;color: #ffcc66;font-size: 0.9rem;border: none;padding: 0.5rem 1.5rem; letter-spacing: 2px;">Reset Password<a/><br><br>
+					 If you have not requested for this email. Ignore it.`;
 
 	try {
 		await sendEmail({
@@ -140,8 +141,6 @@ exports.resetPassword = catchAsyncErrors(async (req, res, next) => {
 		resetPasswordToken,
 		resetPasswordTokenExpire: { $gt: Date.now() },
 	});
-
-	console.log(user);
 
 	if (!user) {
 		return next(
@@ -187,7 +186,7 @@ exports.sendEmailVerificationLink = catchAsyncErrors(async (req, res, next) => {
 
 	const message = `Please click the link below to verify your email<br><br>
 					<a href="${emailVerificationURL}" type="button" style="text-decoration: none; border-radius: 0.2rem;
-					background-color: #204060;color: white;font-size: 1rem; border: none;padding: 0.5rem 1.5rem; letter-spacing: 2px;">Verify Email</a>
+					background-color: #204060;color: #ffcc66;font-size: 0.9rem; border: none;padding: 0.5rem 1.5rem; letter-spacing: 2px;">Verify Email</a><br><br>
 					If you have not requested for this email. Please ignore it <br><br>`;
 
 	try {

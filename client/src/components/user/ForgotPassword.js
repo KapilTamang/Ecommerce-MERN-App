@@ -2,7 +2,11 @@ import React, { Fragment, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAlert } from 'react-alert';
 import { useDispatch, useSelector } from 'react-redux';
-import { forgotPassword, clearErrors } from '../../actions/userAction';
+import {
+	forgotPassword,
+	clearSuccessMessage,
+	clearErrors,
+} from '../../actions/userAction';
 import MetaData from '../layouts/MetaData';
 import FormLoader from '../layouts/FormLoader';
 
@@ -25,6 +29,7 @@ const ForgotPassword = () => {
 
 		if (message) {
 			alert.success(message);
+			dispatch(clearSuccessMessage());
 		}
 	}, [dispatch, alert, error, message]);
 

@@ -246,6 +246,13 @@ export const forgotPasswordReducer = (state = {}, action) => {
 			};
 		}
 
+		case CLEAR_SUCCESS_MESSAGE: {
+			return {
+				...state,
+				message: null,
+			};
+		}
+
 		case CLEAR_ERRORS: {
 			return {
 				...state,
