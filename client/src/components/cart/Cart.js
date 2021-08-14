@@ -54,20 +54,6 @@ const Cart = ({ history }) => {
 			<MetaData title="Cart" />
 			{cartItems.length === 0 ? (
 				<Fragment>
-					{/* <div className="row justify-content-center">
-						<div className="col-6 mt-5 text-center">
-							<img
-								src="/images/empty_cart.svg"
-								alt=""
-								className="mt-4 mb-1 img-fluid d-block mx-auto"
-								width="550"
-							/>
-							<h3>Your Cart is currently empty.</h3>
-							<Link to="/" className="btn btn-yellow mt-3">
-								Shop Now
-							</Link>
-						</div>
-					</div> */}
 					<NotFound
 						image={'empty_cart'}
 						msg={'Your Cart is Currently Empty.'}

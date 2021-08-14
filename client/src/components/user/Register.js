@@ -45,7 +45,7 @@ const Register = ({ history }) => {
 				dispatch(clearErrors());
 			}
 		}
-	}, [dispatch, isAuthenticated, error, alert, history, message]);
+	}, [dispatch, isAuthenticated, error, alert, history, user.name, message]);
 
 	console.log(avatarPreview);
 

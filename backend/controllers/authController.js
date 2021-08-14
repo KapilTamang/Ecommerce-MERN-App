@@ -43,7 +43,7 @@ exports.registerUser = catchAsyncErrors(async (req, res, next) => {
 
 	const message = `Please click the link below to verify your email<br><br>
 					<a href="${emailVerificationURL}" type="button" style="text-decoration: none; border-radius: 0.2rem;
-					background-color: #204060;color: white;font-size: 1rem; border: none;padding: 0.5rem 1.5rem; letter-spacing: 2px;">Verify Email</a>
+					background-color: #204060;color: white;font-size: 1rem; border: none;padding: 0.5rem 1.5rem; letter-spacing: 2px;">Verify Email</a><br><br>
 					If you have not requested for this email. Please ignore it <br><br>`;
 
 	try {
