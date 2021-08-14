@@ -1,6 +1,6 @@
 import React, { useState, Fragment } from 'react';
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { useAlert } from 'react-alert';
 import ConfirmModal from '../layouts/ConfirmModal';
 import { deleteReview } from '../../actions/productAction';
 
@@ -10,8 +10,6 @@ const ListReviews = ({ reviews, productId }) => {
 	const [ratings, setRatings] = useState(0);
 
 	const dispatch = useDispatch();
-
-	const alert = useAlert();
 
 	const { user } = useSelector((state) => state.auth);
 
@@ -64,10 +62,6 @@ const ListReviews = ({ reviews, productId }) => {
 			});
 		}
 	}
-
-	const reviewEditHandler = () => {
-		alert('Edit Clicked');
-	};
 
 	const reviewDeleteHandler = (reviewId) => {
 		const confirmationDialog = document.querySelector('.confirmation-dialog');
@@ -122,7 +116,7 @@ const ListReviews = ({ reviews, productId }) => {
 									{review.comment}
 									{user && user._id === review.user && (
 										<div className="review-edit-delete mt-3 mb-4">
-											<a
+											<Link
 												type="button"
 												className="me-3 btn-edit"
 												data-bs-toggle="modal"
@@ -130,14 +124,14 @@ const ListReviews = ({ reviews, productId }) => {
 												onClick={setUserRatings}
 											>
 												<i class="far fa-edit"></i> Edit
-											</a>
-											<a
+											</Link>
+											<Link
 												type="button"
 												className="btn-delete"
 												onClick={() => showDialog(review._id)}
 											>
 												<i class="far fa-trash-alt"></i> Delete
-											</a>
+											</Link>
 										</div>
 									)}
 								</div>

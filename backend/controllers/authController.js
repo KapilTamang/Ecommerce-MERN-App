@@ -6,13 +6,12 @@ const sendEmail = require('../utils/sendEmail');
 const crypto = require('crypto');
 const cloudinary = require('cloudinary');
 const ApiFeatures = require('../utils/apiFeatures');
-const { compareSync } = require('bcryptjs');
 
 //Register User => /api/v1/register
 exports.registerUser = catchAsyncErrors(async (req, res, next) => {
 	const { name, email, password } = req.body.user;
 
-	let user = await User.findOne({ email: email });
+	let user = await User.findOne({ email });
 
 	if (user) {
 		return next(new ErrorHandler('User Already Exist.'));
@@ -34,7 +33,33 @@ exports.registerUser = catchAsyncErrors(async (req, res, next) => {
 		},
 	});
 
-	sendToken(user, 201, res);
+	const emailVerificationToken = user.getEmailVerificationToken();
+
+	await user.save({ validateBeforeSave: false });
+
+	const emailVerificationURL = `${req.protocol}://${req.get(
+		'host'
+	)}/email/verify/${emailVerificationToken}`;
+
+	const message = `Please click the link below to verify your email<br><br>
+					<a href="${emailVerificationURL}" type="button" style="text-decoration: none; border-radius: 0.2rem;
+					background-color: #204060;color: white;font-size: 1rem; border: none;padding: 0.5rem 1.5rem; letter-spacing: 2px;">Verify Email</a>
+					If you have not requested for this email. Please ignore it <br><br>`;
+
+	try {
+		await sendEmail({
+			email: user.email,
+			subject: 'Afnai Pasal Email Verification',
+			message,
+		});
+
+		sendToken(user, 201, res);
+	} catch (error) {
+		user.emailVerificationToken = undefined;
+		user.emailVerificationTokenExpire = undefined;
+
+		await user.save({ validateBeforeSave: false });
+	}
 });
 
 //Login User => /api/v1/login
@@ -71,30 +96,31 @@ exports.forgotPassword = catchAsyncErrors(async (req, res, next) => {
 		return next(new ErrorHandler('User not found with this email', 404));
 	}
 
-	//Generate Token And Save It
+	//Generate Reset Token And Save It
 	const resetToken = user.getResetPasswordToken();
 
-	user.save({ validateBeforeSave: false });
+	await user.save({ validateBeforeSave: false });
 
 	//Create Reset Password URl
 	const resetPasswordURL = `${req.protocol}://${req.get(
 		'host'
 	)}/password/reset/${resetToken}`;
 
-	const message = `Your password reset link is as follow <br><br> <a href="${resetPasswordURL}"><b>CLICK ME</b><a/> <br><br> If you have not requested for this email. Ignore it.`;
+	const message = `Your password reset link is as follow <br><br> <a type="button" href="${resetPasswordURL}" style="text-decoration: none; border-radius: 0.2rem;
+					background-color: #204060;color: white;font-size: 1rem;border: none;padding: 0.5rem 1.5rem; letter-spacing: 2px;">Reset Password<a/> <br><br> If you have not requested for this email. Ignore it.`;
 
 	try {
 		await sendEmail({
 			email: user.email,
-			subject: 'AFNAI-PASAL Password Recovery',
+			subject: 'AFNAI PASAL Password Recovery',
 			message,
 		});
 
 		res.status(200).json({
 			success: true,
-			message: `Email sent to ${user.email}. Please check email for password reset link.`,
+			message: 'Password reset link has been sent',
 		});
-	} catch (err) {
+	} catch (error) {
 		user.resetPasswordToken = undefined;
 		user.resetPasswordTokenExpire = undefined;
 
@@ -114,6 +140,8 @@ exports.resetPassword = catchAsyncErrors(async (req, res, next) => {
 		resetPasswordToken,
 		resetPasswordTokenExpire: { $gt: Date.now() },
 	});
+
+	console.log(user);
 
 	if (!user) {
 		return next(
@@ -140,6 +168,83 @@ exports.resetPassword = catchAsyncErrors(async (req, res, next) => {
 	sendToken(user, 200, res);
 });
 
+//Email Verification Request  => /api/v1/email/verify
+exports.sendEmailVerificationLink = catchAsyncErrors(async (req, res, next) => {
+	const user = await User.findOne({ email: req.body.email });
+
+	if (!user) {
+		return next(new ErrorHandler('User not found with this email', 404));
+	}
+
+	//Generate Email Verification Token and Save it
+	const emailVerificationToken = user.getEmailVerificationToken();
+
+	await user.save({ validateBeforeSave: false });
+
+	const emailVerificationURL = `${req.protocol}://${req.get(
+		'host'
+	)}/email/verify/${emailVerificationToken}`;
+
+	const message = `Please click the link below to verify your email<br><br>
+					<a href="${emailVerificationURL}" type="button" style="text-decoration: none; border-radius: 0.2rem;
+					background-color: #204060;color: white;font-size: 1rem; border: none;padding: 0.5rem 1.5rem; letter-spacing: 2px;">Verify Email</a>
+					If you have not requested for this email. Please ignore it <br><br>`;
+
+	try {
+		await sendEmail({
+			email: user.email,
+			subject: 'AFNAI PASAL Email Verification',
+			message,
+		});
+
+		res.status(200).json({
+			success: true,
+			message: 'Email verification link has been sent',
+		});
+	} catch (error) {
+		user.emailVerificationToken = undefined;
+		user.emailVerificationTokenExpire = undefined;
+
+		await user.save({ validateBeforeSave: false });
+	}
+});
+
+//Verify Email => /api/v1/email/verify/:token
+exports.verifyEmail = catchAsyncErrors(async (req, res, next) => {
+	const emailVerificationToken = crypto
+		.createHash('sha256')
+		.update(req.params.token)
+		.digest('hex');
+
+	const user = await User.findOne({
+		emailVerificationToken,
+		emailVerificationTokenExpire: { $gt: Date.now() },
+	});
+
+	if (!user) {
+		return next(
+			new ErrorHandler(
+				'Email verification token is invalid or has been expired',
+				400
+			)
+		);
+	}
+
+	//Set isVerified to True
+	user.isVerified = true;
+
+	//Clear Email Verification Token and Expire Time]
+	user.emailVerificationToken = undefined;
+	user.emailVerificationTokenExpire = undefined;
+
+	await user.save();
+
+	res.status(200).json({
+		success: true,
+		message: 'Email Verification Successful',
+	});
+});
+
 //Get Currently logged In User Details => /api/v1/me
 exports.getUserProfile = catchAsyncErrors(async (req, res, next) => {
 	const user = await User.findById(req.user.id);
@@ -152,7 +257,7 @@ exports.getUserProfile = catchAsyncErrors(async (req, res, next) => {
 
 //Update Currently Logged In User Password => /api/v1/password/update
 exports.updatePassword = catchAsyncErrors(async (req, res, next) => {
-	const user = await User.findById(req.user.id).select('+password');
+	const user = await User.findById(req.user.id).select('password');
 
 	const isMatch = await user.comparePassword(req.body.oldPassword);
 

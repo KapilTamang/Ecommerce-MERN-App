@@ -9,6 +9,8 @@ const {
 	resetPassword,
 	getUserProfile,
 	updatePassword,
+	sendEmailVerificationLink,
+	verifyEmail,
 	updateProfile,
 	logoutUser,
 	getUsers,
@@ -30,6 +32,12 @@ router.route('/password/forgot').post(forgotPassword);
 
 //Reset Password
 router.route('/password/reset/:token').put(resetPassword);
+
+//Email Verification Request
+router.route('/email/verify').post(sendEmailVerificationLink);
+
+//Email Verification
+router.route('/email/verify/:token').get(verifyEmail);
 
 //Get User Profile
 router.route('/me').get(isAuthenticatedUser, getUserProfile);

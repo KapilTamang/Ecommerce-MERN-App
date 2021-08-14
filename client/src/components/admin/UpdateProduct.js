@@ -278,7 +278,7 @@ const UpdateProduct = ({ match, history }) => {
 						</div>
 						<button
 							type="submit"
-							className="btn btn-yellow w-100 py-3 mt-3"
+							className="btn btn-yellow w-100 py-2 mt-3"
 							disabled={loading ? true : false}
 						>
 							UPDATE

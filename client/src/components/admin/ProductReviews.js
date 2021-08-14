@@ -1,5 +1,4 @@
 import React, { Fragment, useState, useEffect } from 'react';
-import Pagination from 'react-js-pagination';
 import Sidebar from './Sidebar';
 import MetaData from '../layouts/MetaData';
 import Loader from '../layouts/Loader';
@@ -18,12 +17,6 @@ import {
 import ConfirmModal from '../layouts/ConfirmModal';
 
 const ProductReviews = ({ history }) => {
-	const [keyword, setKeyword] = useState('');
-
-	const [currentPage, setCurrentPage] = useState(1);
-
-	const [perPage, setPerPage] = useState(2);
-
 	const [id, setId] = useState('');
 
 	const [productId, setProductId] = useState('');
@@ -32,7 +25,7 @@ const ProductReviews = ({ history }) => {
 
 	const dispatch = useDispatch();
 
-	const { loading, error, reviews, reviewsCount, resPerPage } = useSelector(
+	const { loading, error, reviews } = useSelector(
 		(state) => state.productReviews
 	);
 
@@ -58,17 +51,13 @@ const ProductReviews = ({ history }) => {
 			dispatch({
 				type: DELETE_REVIEW_RESET,
 			});
-			dispatch(getProductReviews(productId, keyword, currentPage, perPage));
+			dispatch(getProductReviews(productId));
 		}
 	}, [dispatch, error, alert, deleteError, isDeleted, history, productId]);
 
-	// function setCurrentPageNo(pageNumber) {
-	// 	setCurrentPage(pageNumber);
-	// }
-
 	const getProductReviewsHandler = (e) => {
 		e.preventDefault();
-		dispatch(getProductReviews(productId, keyword, currentPage, perPage));
+		dispatch(getProductReviews(productId));
 	};
 
 	const reviewsResetHandler = (e) => {

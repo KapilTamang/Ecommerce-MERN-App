@@ -6,7 +6,11 @@ import { useAlert } from 'react-alert';
 import FormLoader from '../layouts/FormLoader';
 import MetaData from '../layouts/MetaData';
 
-import { register, clearErrors } from '../../actions/userAction';
+import {
+	register,
+	clearErrors,
+	clearSuccessMessage,
+} from '../../actions/userAction';
 
 const Register = ({ history }) => {
 	const [user, setUser] = useState({
@@ -23,19 +27,25 @@ const Register = ({ history }) => {
 
 	const alert = useAlert();
 
-	const { isAuthenticated, loading, error } = useSelector(
+	const { isAuthenticated, loading, error, message } = useSelector(
 		(state) => state.auth
 	);
 
 	useEffect(() => {
 		if (isAuthenticated) {
+			if (message) {
+				alert.success(message);
+				dispatch(clearSuccessMessage());
+			}
 			history.push('/');
 		}
 		if (error) {
-			alert.error(error);
-			dispatch(clearErrors());
+			if (user.name !== '') {
+				alert.error(error);
+				dispatch(clearErrors());
+			}
 		}
-	}, [dispatch, isAuthenticated, error, alert, history]);
+	}, [dispatch, isAuthenticated, error, alert, history, message]);
 
 	console.log(avatarPreview);
 

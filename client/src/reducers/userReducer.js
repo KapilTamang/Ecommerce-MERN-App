@@ -24,6 +24,12 @@ import {
 	RESET_PASSWORD_REQUEST,
 	RESET_PASSWORD_SUCCESS,
 	RESET_PASSWORD_FAIL,
+	EMAIL_VERIFICATION_REQUEST,
+	EMAIL_VERIFICATION_SUCCESS,
+	EMAIL_VERIFICATION_FAIL,
+	VERIFY_EMAIL_REQUEST,
+	VERIFY_EMAIL_SUCCESS,
+	VERIFY_EMAIL_FAIL,
 	ALL_USERS_REQUEST,
 	ALL_USERS_SUCCESS,
 	ALL_USERS_FAIL,
@@ -38,6 +44,7 @@ import {
 	DELETE_USER_SUCCESS,
 	DELETE_USER_FAIL,
 	DELETE_USER_RESET,
+	CLEAR_SUCCESS_MESSAGE,
 	CLEAR_ERRORS,
 } from '../constants/userConstants';
 
@@ -52,8 +59,26 @@ export const authReducer = (state = { user: {} }, action) => {
 			};
 		}
 
-		case LOGIN_SUCCESS:
-		case REGISTER_USER_SUCCESS:
+		case REGISTER_USER_SUCCESS: {
+			return {
+				...state,
+				loading: false,
+				user: action.payload,
+				message: 'Registration successful. Email verification has been sent',
+				isAuthenticated: true,
+			};
+		}
+
+		case LOGIN_SUCCESS: {
+			return {
+				...state,
+				loading: false,
+				user: action.payload,
+				message: 'Login Successful',
+				isAuthenticated: true,
+			};
+		}
+
 		case LOAD_USER_SUCCESS: {
 			return {
 				...state,
@@ -83,13 +108,6 @@ export const authReducer = (state = { user: {} }, action) => {
 			};
 		}
 
-		case CLEAR_ERRORS: {
-			return {
-				...state,
-				error: null,
-			};
-		}
-
 		case LOGOUT_SUCCESS: {
 			return {
 				loading: false,
@@ -102,6 +120,20 @@ export const authReducer = (state = { user: {} }, action) => {
 			return {
 				...state,
 				error: action.payload,
+			};
+		}
+
+		case CLEAR_SUCCESS_MESSAGE: {
+			return {
+				...state,
+				message: null,
+			};
+		}
+
+		case CLEAR_ERRORS: {
+			return {
+				...state,
+				error: null,
 			};
 		}
 
@@ -211,6 +243,53 @@ export const forgotPasswordReducer = (state = {}, action) => {
 				...state,
 				loading: false,
 				error: action.payload,
+			};
+		}
+
+		case CLEAR_ERRORS: {
+			return {
+				...state,
+				error: null,
+			};
+		}
+
+		default:
+			return state;
+	}
+};
+
+export const emailVerificationReducer = (state = {}, action) => {
+	switch (action.type) {
+		case EMAIL_VERIFICATION_REQUEST:
+		case VERIFY_EMAIL_REQUEST: {
+			return {
+				...state,
+				loading: true,
+			};
+		}
+
+		case EMAIL_VERIFICATION_SUCCESS:
+		case VERIFY_EMAIL_SUCCESS: {
+			return {
+				...state,
+				loading: false,
+				message: action.payload,
+			};
+		}
+
+		case EMAIL_VERIFICATION_FAIL:
+		case VERIFY_EMAIL_FAIL: {
+			return {
+				...state,
+				loading: false,
+				error: action.payload,
+			};
+		}
+
+		case CLEAR_SUCCESS_MESSAGE: {
+			return {
+				...state,
+				message: null,
 			};
 		}
 

@@ -6,7 +6,11 @@ import { useAlert } from 'react-alert';
 import FormLoader from '../layouts/FormLoader';
 import MetaData from '../layouts/MetaData';
 
-import { login, clearErrors } from '../../actions/userAction';
+import {
+	login,
+	clearSuccessMessage,
+	clearErrors,
+} from '../../actions/userAction';
 
 const Login = ({ history, location }) => {
 	const dispatch = useDispatch();
@@ -16,7 +20,7 @@ const Login = ({ history, location }) => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 
-	const { isAuthenticated, error, loading } = useSelector(
+	const { isAuthenticated, error, loading, message } = useSelector(
 		(state) => state.auth
 	);
 
@@ -24,14 +28,21 @@ const Login = ({ history, location }) => {
 
 	useEffect(() => {
 		if (isAuthenticated) {
+			if (message) {
+				alert.success(message);
+				dispatch(clearSuccessMessage());
+			}
 			history.push(redirect);
 		}
 
 		if (error) {
-			alert.error(error);
-			dispatch(clearErrors());
+			if (email !== '' || password !== '') {
+				alert.error(error);
+				dispatch(clearErrors());
+			}
 		}
-	}, [dispatch, alert, isAuthenticated, error, redirect, history]);
+		//eslint-disable-next-line
+	}, [dispatch, alert, isAuthenticated, error, redirect, history, message]);
 
 	const loginHandler = (e) => {
 		e.preventDefault();

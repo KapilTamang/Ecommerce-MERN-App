@@ -18,6 +18,14 @@ const sendEmail = async (options) => {
 		html: options.message,
 	};
 
+	transporter.verify(function (error, success) {
+		if (error) {
+			console.log(error);
+		} else {
+			console.log('Server ready to take message');
+		}
+	});
+
 	await transporter.sendMail(message);
 };
 

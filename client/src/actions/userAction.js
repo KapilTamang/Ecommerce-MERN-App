@@ -17,13 +17,18 @@ import {
 	UPDATE_PASSWORD_FAIL,
 	LOGOUT_SUCCESS,
 	LOGOUT_FAIL,
-	CLEAR_ERRORS,
 	FORGOT_PASSWORD_FAIL,
 	FORGOT_PASSWORD_REQUEST,
 	FORGOT_PASSWORD_SUCCESS,
 	RESET_PASSWORD_FAIL,
 	RESET_PASSWORD_REQUEST,
 	RESET_PASSWORD_SUCCESS,
+	EMAIL_VERIFICATION_REQUEST,
+	EMAIL_VERIFICATION_SUCCESS,
+	EMAIL_VERIFICATION_FAIL,
+	VERIFY_EMAIL_REQUEST,
+	VERIFY_EMAIL_SUCCESS,
+	VERIFY_EMAIL_FAIL,
 	ALL_USERS_REQUEST,
 	ALL_USERS_SUCCESS,
 	ALL_USERS_FAIL,
@@ -36,6 +41,8 @@ import {
 	DELETE_USER_REQUEST,
 	DELETE_USER_SUCCESS,
 	DELETE_USER_FAIL,
+	CLEAR_SUCCESS_MESSAGE,
+	CLEAR_ERRORS,
 } from '../constants/userConstants';
 
 //Login User
@@ -225,6 +232,54 @@ export const resetPassword = (token, passwords) => async (dispatch) => {
 	}
 };
 
+//Email Verification Request
+export const emailVerification = (email) => async (dispatch) => {
+	try {
+		dispatch({
+			type: EMAIL_VERIFICATION_REQUEST,
+		});
+
+		const config = {
+			headers: {
+				'Content-Type': 'application/json',
+			},
+		};
+
+		const res = await axios.post('/api/v1/email/verify', email, config);
+
+		dispatch({
+			type: EMAIL_VERIFICATION_SUCCESS,
+			payload: res.data.message,
+		});
+	} catch (error) {
+		dispatch({
+			type: EMAIL_VERIFICATION_FAIL,
+			payload: error.response.data.message,
+		});
+	}
+};
+
+//Verify Email
+export const verifyEmail = (token) => async (dispatch) => {
+	try {
+		dispatch({
+			type: VERIFY_EMAIL_REQUEST,
+		});
+
+		const res = await axios.get(`/api/v1/email/verify/${token}`);
+
+		dispatch({
+			type: VERIFY_EMAIL_SUCCESS,
+			payload: res.data.message,
+		});
+	} catch (error) {
+		dispatch({
+			type: VERIFY_EMAIL_FAIL,
+			payload: error.response.data.message,
+		});
+	}
+};
+
 //Logout User
 export const logout = () => async (dispatch) => {
 	try {
@@ -333,6 +388,13 @@ export const deleteUser = (id) => async (dispatch) => {
 			payload: error.response.data.message,
 		});
 	}
+};
+
+//Clear Success Message
+export const clearSuccessMessage = () => async (dispatch) => {
+	dispatch({
+		type: CLEAR_SUCCESS_MESSAGE,
+	});
 };
 
 //Clear Errors

@@ -14,6 +14,11 @@ const ProtectedRoute = ({ isAdmin, component: Component, ...rest }) => {
 						if (isAuthenticated === false) {
 							return <Redirect to="/login" />;
 						}
+
+						if (isAuthenticated === true && user.isVerified === false) {
+							return <Redirect to="/email/verify" />;
+						}
+
 						if (isAdmin === true && user.role !== 'admin') {
 							return <Redirect to="/" />;
 						}

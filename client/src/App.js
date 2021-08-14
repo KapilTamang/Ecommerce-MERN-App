@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import './App.css';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import Header from './components/layouts/Header';
 import Footer from './components/layouts/Footer';
@@ -18,6 +18,8 @@ import OrderDetails from './components/order/OrderDetails';
 
 import ProductDetails from './components/product/ProductDetails';
 
+import NotFound from './components/layouts/NotFound';
+
 //Auth or User Imports
 import Profile from './components/user/Profile';
 import Login from './components/user/Login';
@@ -26,6 +28,8 @@ import UpdateProfile from './components/user/UpdateProfile';
 import UpdatePassword from './components/user/UpdatePassword';
 import ForgotPassword from './components/user/ForgotPassword';
 import ResetPassword from './components/user/ResetPassword';
+import VerifyEmailRequest from './components/user/VerifyEmailRequest';
+import VerifyEmail from './components/user/VerifyEmail';
 
 //Admin Imports
 import Dashboard from './components/admin/Dashboard';
@@ -39,7 +43,7 @@ import UpdateUser from './components/admin/UpdateUser';
 import ProductReviews from './components/admin/ProductReviews';
 
 import ProtectedRoute from './components/route/ProtectedRoute';
-import { loadUser } from './actions/userAction';
+import { loadUser, clearErrors } from './actions/userAction';
 import store from './store';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
@@ -49,6 +53,7 @@ function App() {
 	const [stripeApiKey, setStripeApiKey] = useState('');
 	useEffect(() => {
 		store.dispatch(loadUser());
+		store.dispatch(clearErrors());
 
 		async function getStripeApiKey() {
 			const res = await axios.get('/api/v1/stripeapi');
@@ -66,46 +71,53 @@ function App() {
 			<div className="App">
 				<Header />
 				<div className="container container-fluid">
-					<Route path="/" component={Home} exact />
-					<Route path="/search/:keyword" component={Home} exact />
-					<Route path="/product/:id" component={ProductDetails} exact />
+					<Switch>
+						<Route path="/" component={Home} exact />
+						<Route path="/search/:keyword" component={Home} exact />
+						<Route path="/product/:id" component={ProductDetails} exact />
 
-					<Route path="/cart" component={Cart} exact />
-					<ProtectedRoute path="/shipping" component={Shipping} />
-					<ProtectedRoute
-						path="/orders/confirm"
-						component={ConfirmOrder}
-						exact
-					/>
-					<ProtectedRoute
-						path="/orders/success"
-						component={OrderSuccess}
-						exact
-					/>
-					{stripeApiKey && (
-						<Elements stripe={loadStripe(stripeApiKey)}>
-							<ProtectedRoute path="/payment" component={Payment} />
-						</Elements>
-					)}
+						<Route path="/cart" component={Cart} exact />
+						<ProtectedRoute path="/shipping" component={Shipping} />
+						<ProtectedRoute
+							path="/orders/confirm"
+							component={ConfirmOrder}
+							exact
+						/>
+						<ProtectedRoute
+							path="/orders/success"
+							component={OrderSuccess}
+							exact
+						/>
+						{stripeApiKey && (
+							<Elements stripe={loadStripe(stripeApiKey)}>
+								<ProtectedRoute path="/payment" component={Payment} />
+							</Elements>
+						)}
 
-					<Route path="/login" component={Login} />
-					<Route path="/register" component={Register} />
-					<Route path="/password/forgot" component={ForgotPassword} exact />
-					<Route
-						path="/password/reset/:token"
-						component={ResetPassword}
-						exact
-					/>
-					<ProtectedRoute path="/me" component={Profile} exact />
-					<ProtectedRoute path="/me/update" component={UpdateProfile} exact />
-					<ProtectedRoute
-						path="/password/update"
-						component={UpdatePassword}
-						exact
-					/>
-					<ProtectedRoute path="/orders/me" component={ListOrders} exact />
-					<ProtectedRoute path="/order/:id" component={OrderDetails} exact />
+						<Route path="/email/verify" component={VerifyEmailRequest} exact />
+						<Route path="/email/verify/:token" component={VerifyEmail} exact />
+
+						<Route path="/login" component={Login} />
+						<Route path="/register" component={Register} />
+						<Route path="/password/forgot" component={ForgotPassword} exact />
+						<Route
+							path="/password/reset/:token"
+							component={ResetPassword}
+							exact
+						/>
+						<ProtectedRoute path="/me" component={Profile} exact />
+						<ProtectedRoute path="/me/update" component={UpdateProfile} exact />
+						<ProtectedRoute
+							path="/password/update"
+							component={UpdatePassword}
+							exact
+						/>
+						<ProtectedRoute path="/orders/me" component={ListOrders} exact />
+						<ProtectedRoute path="/order/:id" component={OrderDetails} exact />
+						<Route component={NotFound} />
+					</Switch>
 				</div>
+
 				<ProtectedRoute
 					path="/dashboard"
 					isAdmin={true}
@@ -160,6 +172,7 @@ function App() {
 					component={ProductReviews}
 					exact
 				/>
+
 				{!loading && (!isAuthenticated || (user && user.role !== 'admin')) && (
 					<Footer />
 				)}
