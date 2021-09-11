@@ -6,6 +6,7 @@ A simple ecommerce application developed using a **MERN** stack.
 - Usage of [Cloudinary](https://cloudinary.com/) for assest (images) management. 
 - Usage of JWT authentication.
 - Integration of [Stripe](https://stripe.com/) for payment processing.
+- Deployed on [Heroku](https://www.heroku.com/)
 
 # Snapshots
 `HOME`
