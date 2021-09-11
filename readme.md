@@ -1,4 +1,4 @@
- **Demo [Here](https://ecommerce-mern-app-afnaipasal.herokuapp.com/)**
+ **Demo [HERE](https://ecommerce-mern-app-afnaipasal.herokuapp.com/)**
 
 # Ecommerce Application (MERN)
 A simple ecommerce application developed using a **MERN** stack. 
