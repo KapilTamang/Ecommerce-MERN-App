@@ -1,12 +1,12 @@
  **Demo [HERE](https://ecommerce-mern-app-afnaipasal.herokuapp.com/)**
 
 # Ecommerce Application (MERN)
-A simple ecommerce application developed using a **MERN** stack. 
+A simple ecommerce application build using a **MERN** stack. 
 - Usage of [Redux](https://redux.js.org/) for state management.
 - Usage of [Cloudinary](https://cloudinary.com/) for assest (images) management. 
 - Usage of JWT authentication.
 - Integration of [Stripe](https://stripe.com/) for payment processing.
-- Deployed on [Heroku](https://www.heroku.com/)
+- [Heroku](https://www.heroku.com/) as a deployment platform.
 
 # Snapshots
 `HOME`
