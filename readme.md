@@ -13,6 +13,11 @@ A simple ecommerce application build using a **MERN** stack.
 
 ![Buy-Cheap-Best-Products-Online-AFNAI-PASAL](https://user-images.githubusercontent.com/70515260/132940809-20ce427b-e36e-40dc-933c-e10cb7a80bd8.png)
 
+`CART`
+
+![Cart-AFNAI-PASAL](https://user-images.githubusercontent.com/70515260/133555820-69f40f0c-28f1-40d9-868f-42f6deead206.png)
+
+
 `LOGIN`
 
 ![Login-AFNAI-PASAL](https://user-images.githubusercontent.com/70515260/132941059-fe35f5a1-f33d-4630-a4bd-ea805a4d3e88.png)
