@@ -1000,6 +1000,18 @@ ul.CTAs a {
 		border-radius: 0.2rem;
 	}
 }
+/* Website Preloader */
+#preloader {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background-color: #fff;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	align-items: center;
+	z-index: 999;
+}
 
 @media (min-width: 576px) {
 	#product_image {

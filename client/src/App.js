@@ -42,6 +42,7 @@ import ProductReviews from './components/admin/ProductReviews';
 
 import ProtectedRoute from './components/route/ProtectedRoute';
 import { loadUser, clearErrors } from './actions/userAction';
+import Preloader from './components/layouts/Preloader';
 import store from './store';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
@@ -67,6 +68,7 @@ function App() {
 	return (
 		<Router>
 			<div className="App">
+				<Preloader />
 				<Header />
 				<div className="container container-fluid">
 					<Route path="/" component={Home} exact />

@@ -32,10 +32,13 @@
 		/>
 		<title>AFNAI PASAL - Your Own Store</title>
 	</head>
-	<body>
-		<noscript>You need to enable JavaScript to run this app.</noscript>
+	<body onload="disablePreloader()">
 		<div id="root"></div>
-
+		<script>
+			function disablePreloader() {
+				document.getElementById('preloader').style.display = 'none';
+			}
+		</script>
 		<!--Bootstrap JS CDN-->
 		<script
 			src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js"
